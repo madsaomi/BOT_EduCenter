@@ -5,6 +5,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.client.default import DefaultBotProperties
+from aiogram.client.session.aiohttp import AiohttpSession
 from dotenv import load_dotenv
 
 import sys
@@ -37,7 +38,13 @@ async def main():
     # DB ni ishga tushirish
     init_db()
 
-    bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    # PythonAnywhere proxy (for free accounts)
+    session = AiohttpSession(proxy="http://proxy.server:3128")
+    bot = Bot(
+        token=BOT_TOKEN, 
+        session=session,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
     dp = Dispatcher(storage=MemoryStorage())
 
     # Routerlarni ulash (admin birinchi – priority)
