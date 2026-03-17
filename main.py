@@ -9,9 +9,8 @@ from dotenv import load_dotenv
 
 import sys
 import os
-# Load .env from root directory
-root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-load_dotenv(os.path.join(root_dir, '.env'))
+# Load .env from same directory as main.py
+load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
 
 # Bot sozlamalari
 BOT_TOKEN = os.getenv("BOT_TOKEN")
